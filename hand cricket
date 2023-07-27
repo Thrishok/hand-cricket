@@ -1,0 +1,255 @@
+#include<iostream>
+#include<cstdlib>
+#include<ctime>
+#include<cstring>
+int compwontoss();
+int losebowl();
+int losebat();
+int winbat();
+int winbowl();
+int plyrbat(int);
+int plyrbat();
+int plyrbowl(int);
+int plyrbowl();
+using namespace std;
+class plyrbat{
+    int i;
+    int runs;
+    int bowler;
+    int run;
+};
+int main(){
+    char toss[10];
+    char des[10];
+    int cp,tossnum,toss_win;
+    int compdes,bowl,cpruns,pruns;
+    cout<<"enter ODD (or) EVEN\n";
+    cin>>toss;
+    //toss=tolower(toss);
+    if(strcmp(toss,"even")==0){             //-------------------------even
+        srand(time(0));
+        cp=((rand()%6)+1);
+
+        cout<<"enter a number(1-6):";
+        cin>>tossnum;
+        cout<<"computer----------->"<<cp<<endl;
+        toss_win=cp+tossnum;               //--------------------------even-win
+        if(toss_win%2==0){
+            cout<<"player won the toss\a\n";
+            cout<<"choose to BATTING...or BOWLING...\n";
+            cin>>des;
+            }
+            if(strcmp(des,"batting")==0){
+                winbat();
+                }
+            if(strcmp(des,"bowling")==0){
+                winbowl();
+            }
+        else{                              //---------------------------even-lose
+            compwontoss();
+        }
+    }
+    if(strcmp(toss,"odd")==0){             //-------------------------------odd
+        srand(time(0));
+        cp=((rand()%6)+1);
+        cout<<"enter a number(1-6):";
+        cin>>tossnum;
+        cout<<"computer----------->"<<cp<<endl;
+        toss_win=cp+tossnum;
+        if(toss_win%2!=0){                //-------------------------------odd-win
+            cout<<"player won the toss\a\n";
+            cout<<"choose to BATTING...or BOWLING...\n";
+            cin>>des;
+            }
+            if(strcmp(des,"batting")==0){
+                winbat();
+                }
+            if(strcmp(des,"bowling")==0){
+                winbowl();
+            }
+        else{                              //--------------------------------odd-lose
+            compwontoss();
+        }
+    }
+    else
+        cout<<"invalid choice";
+}
+int plyrbat(int cpruns){
+    int i=0,bowler,run,runs=0;
+    while(i<1){
+        srand(time(0));
+        bowler=((rand()%6)+1);
+        cout<<"enter number(1-6):";
+        cin>>run;
+        if(run<=6){
+        runs=runs+run;
+        if(bowler==run){
+            runs=runs-run;
+            cout<<"******************** You are OUT ********************\a\n";
+            cout<<"Your run is "<<runs<<endl;
+            break;
+        }
+        else{
+        cout<<"run------>"<<run<<endl;
+        cout<<"bowl----->"<<bowler<<endl;
+        cout<<" total run is "<<runs<<endl;
+        if(runs>cpruns)
+            break;
+        }
+    }
+    }
+    return runs;
+}
+int plyrbat(){
+    int i=0,bowler,run,runs=0;
+    while(i<1){
+        srand(time(0));
+        bowler=((rand()%6)+1);
+        cout<<"enter number(1-6):";
+        cin>>run;
+        if(run<=6){
+        runs=runs+run;
+        if(bowler==run){
+            runs=runs-run;
+            cout<<"******************** You are OUT ********************\a\n";
+            cout<<"Your run is "<<runs<<endl;
+            cout<<" TARGET is "<<runs+1<<endl;
+            break;
+        }
+        else{
+        cout<<"run------>"<<run<<endl;
+        cout<<"bowl----->"<<bowler<<endl;
+        cout<<" total run is "<<runs<<endl;
+        }
+        }
+    }
+    return runs;
+}
+int plyrbowl(int pruns){
+    int i=0,bowl,cprun,runs=0;
+    while(i<1){
+        srand(time(0));
+        cprun=((rand()%6)+1);
+        cout<<"enter number(1-6):";
+        cin>>bowl;
+        runs=runs+cprun;
+        if(bowl==cprun){
+            runs=runs-cprun;
+            cout<<"******************** computer is OUT ********************\a\n";
+            break;
+            }
+        else{
+        cout<<"run------>"<<cprun<<endl;
+        cout<<"bowl----->"<<bowl<<endl;
+        cout<<" total run is "<<runs<<endl;
+        if(runs>pruns)
+            break;
+        }
+    }
+return runs;
+}
+int plyrbowl(){
+    int i=0,bowl,cprun,runs=0;
+    while(i<1){
+        srand(time(0));
+        cprun=((rand()%6)+1);
+        cout<<"enter number(1-6):";
+        cin>>bowl;
+        runs=runs+cprun;
+        if(bowl==cprun){
+            runs=runs-cprun;
+            cout<<"******************** computer is OUT ********************\a\n";
+            cout<<"computer run is "<<runs<<endl;
+            cout<<" TARGET is "<<runs+1<<endl;
+            break;
+            }
+        else{
+        cout<<"run------>"<<cprun<<endl;
+        cout<<"bowl----->"<<bowl<<endl;
+        cout<<" total run is "<<runs<<endl;
+        }
+    }
+return runs;
+}
+int winbat(){
+                cout<<"******************* Match begins ********************\n";
+                int pruns=plyrbat();
+                cout<<"Now you are bowling...\n";
+                int cpruns=plyrbowl(pruns);
+                if(pruns>cpruns){
+                    cout<<"player won the match!\n";
+                    exit(0);}
+                else if(cpruns>pruns){
+                    cout<<"computer won the match!\n";
+                    exit(0);
+                }
+                else{
+                    cout<<"Match was a tie\n";
+                    exit(0);
+                }
+}
+int winbowl(){
+                cout<<"******************* Match begins ********************\n";
+                int cpruns=plyrbowl();
+                cout<<"Now you are batting...\n";
+                int pruns=plyrbat(cpruns);
+                 if(pruns>cpruns){
+                    cout<<"player won the match!\n";
+                    exit(0);}
+                else if(cpruns>pruns){
+                    cout<<"computer won the match!\n";
+                    exit(0);
+                }
+                else{
+                    cout<<"Match was a tie\n";
+                    exit(0);
+                }
+}
+int losebowl(){
+                cout<<"Computer decided to bat now\n";
+                cout<<"******************* Match begins ********************\n";
+                int cpruns=plyrbowl();
+                cout<<"Now you are batting...\n";
+                int pruns=plyrbat(cpruns);
+                 if(pruns>cpruns){
+                    cout<<"player won the match!\n";
+                    exit(0);}
+                else if(cpruns>pruns){
+                    cout<<"computer won the match!\n";
+                    exit(0);
+                }
+                else{
+                    cout<<"Match was a tie\n";
+                    exit(0);
+                }
+}
+int losebat(){
+                cout<<"computer decided to bowl now\n";
+                cout<<"******************* Match begins ********************\n";
+                int pruns=plyrbat();
+                cout<<"Now you are bowling...\n";
+                int cpruns=plyrbowl(pruns);
+                if(pruns>cpruns){
+                    cout<<"player won the match!\n";
+                    exit(0);}
+                else if(cpruns>pruns){
+                    cout<<"computer won the match!\n";
+                    exit(0);
+                }
+                else{
+                    cout<<"Match was a tie\n";
+                    exit(0);
+                }
+}
+int compwontoss(){
+            cout<<"Computer won the toss\n";
+            srand(time(0));
+            int compdes=((rand()%2)+1);
+            if(compdes==1){
+                losebowl();
+            }
+            if(compdes==2){
+                losebat();
+            }
+}
+
